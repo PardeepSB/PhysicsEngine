@@ -21,11 +21,12 @@
 # ASSIMP_LIBRARIES                          #
 #############################################
 
+SET( PROGRAMFILESX86 "PROGRAMFILES(X86)" )
 SET( ASSIMP_SEARCH_PATHS
 	${ASSIMP_ROOT_DIR}					# ASSIMP!
 	./lib/Assimp
 	$ENV{PROGRAMFILES}/ASSIMP			# WINDOWS
-	"$ENV{PROGRAMFILES(X86)}/ASSIMP"	# WINDOWS
+	"$ENV{${PROGRAMFILESX86}}/ASSIMP"	# WINDOWS
 	~/Library/Frameworks				# MAC
 	/Library/Frameworks					# MAC
 	/usr/local							# LINUX/MAC/UNIX

@@ -204,12 +204,24 @@ Texture::Texture(const Texture& texture) :
 	m_textureData->AddReference();
 }
 
-void Texture::operator=(Texture texture)
+Texture& Texture::operator=(Texture other) noexcept
 {
-	char* temp[sizeof(Texture)/sizeof(char)];
-	memcpy(temp, this, sizeof(Texture));
-	memcpy(this, &texture, sizeof(Texture));
-	memcpy(&texture, temp, sizeof(Texture));
+	//Implemented using move assignment
+	// Guard self assignment
+	if (this == &other){
+		return *this;
+	}
+
+	if (m_textureData && m_textureData->RemoveReference()){
+		if (m_fileName.length() > 0){
+			s_resourceMap.erase(m_fileName);
+			delete m_textureData;
+		}
+	}
+	m_fileName = other.m_fileName;
+	m_textureData = other.m_textureData;
+	m_textureData->AddReference();
+	return *this;
 }
 
 Texture::~Texture()
